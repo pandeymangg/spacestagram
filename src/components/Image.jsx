@@ -1,7 +1,7 @@
 import React from "react";
-import { AiOutlineCalendar, AiTwotoneLike } from "react-icons/ai";
+import { AiOutlineCalendar, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
-import { trimExplanation } from "../utils/trimExplanation";
+// import { trimExplanation } from "../utils/trimExplanation";
 
 const Image = ({ photo, isLiked, setLiked }) => {
   return (
@@ -13,14 +13,15 @@ const Image = ({ photo, isLiked, setLiked }) => {
           <AiOutlineCalendar size={14} style={{ marginTop: "-2px" }} />
           <span>{photo.date}</span>
         </p>
-        <p className="single-image__details-desc">
-          {trimExplanation(photo.explanation)}
-        </p>
+        <p className="single-image__details-desc">{photo.explanation}</p>
       </div>
       <div className="single-image__details-like">
         <button onClick={() => setLiked(isLiked)}>
-          <AiTwotoneLike color={isLiked ? "green" : "#333"} />
-          <span>Like</span>
+          <AiFillHeart
+            color={isLiked ? "red" : "#333"}
+            style={{ marginTop: -2 }}
+          />
+          <span>{isLiked ? "Liked!" : "Like"}</span>
         </button>
       </div>
     </SingleImage>
@@ -28,7 +29,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
 };
 
 const SingleImage = styled.div`
-  width: 100%;
+  width: 90%;
   overflow: hidden;
   position: relative;
   border-radius: 10px;
@@ -77,8 +78,21 @@ const SingleImage = styled.div`
       font-weight: 500;
       color: #555;
 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      line-clamp: 7;
+      -webkit-box-orient: vertical;
+
+      @media (max-width: 1200px) {
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
+      }
+
       @media (max-width: 640px) {
-        font-size: 18px;
+        -webkit-line-clamp: 8;
+        line-clamp: 8;
       }
     }
   }
@@ -90,8 +104,8 @@ const SingleImage = styled.div`
 
     & button {
       cursor: pointer;
-      padding: 0.5rem 0;
-      font-size: 16px;
+      padding: 0.2rem 0.1rem;
+      font-size: 18px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -99,8 +113,6 @@ const SingleImage = styled.div`
       background-color: #fff;
       outline: none;
       border: none;
-      border-radius: 2px;
-      /* box-shadow: 1px 1px 2px #333; */
     }
   }
 

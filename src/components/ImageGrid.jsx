@@ -79,8 +79,7 @@ const Container = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  /* grid-template-rows: 1fr; */
-  grid-template-rows: masonry;
+  grid-template-rows: 1fr;
   gap: 16px;
 `;
 
