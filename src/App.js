@@ -20,6 +20,7 @@ function App() {
         <div
           style={{
             background: theme === "light" ? "#f4f4f5" : "#1c1c1c",
+            transition: "background-color 0.2s ease",
           }}
         >
           <Container />

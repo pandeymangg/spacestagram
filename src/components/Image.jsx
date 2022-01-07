@@ -106,12 +106,13 @@ const SingleImage = styled.div`
   & .single-image__img-icon {
     opacity: ${({ _, showLikeIcon }) => (showLikeIcon ? 1 : 0)};
     transform: scale(${({ _, showLikeIcon }) => (showLikeIcon ? 1.5 : 1)});
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: ${({ theme }) =>
+      theme === "light" ? "rgba(85, 85, 85, 0.2)" : "rgba(0, 0, 0, 0.2)"};
     z-index: ${({ _, showLikeIcon }) => showLikeIcon && 10};
     display: flex;
     justify-content: center;
