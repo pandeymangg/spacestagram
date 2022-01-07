@@ -31,8 +31,8 @@ const Header = () => {
 };
 
 const Container = styled.div`
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
   & .heading__wrapper {
     width: 95%;
