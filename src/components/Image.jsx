@@ -13,9 +13,13 @@ const Image = ({ photo, isLiked, setLiked }) => {
   const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
   let likeIconTimer = null;
+  let copyIconTimer = null;
 
   useEffect(() => {
-    return () => clearTimeout(likeIconTimer);
+    return () => {
+      clearTimeout(likeIconTimer);
+      clearTimeout(copyIconTimer);
+    };
   }, []);
 
   const likeHandler = () => {
@@ -30,6 +34,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
   const copyHandler = () => {
     navigator.clipboard.writeText(photo.url);
     setLinkCopied(true);
+    likeIconTimer = setTimeout(() => setLinkCopied(false), 2000);
   };
 
   return (
