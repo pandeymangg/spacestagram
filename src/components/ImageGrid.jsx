@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { photoFetcher } from "../utils/photoFetcher";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -10,20 +10,9 @@ const ImageGrid = () => {
   const [photos, setPhotos] = useState([]);
   const [likedPhotos, setLikedPhotos] = useLocalStorage("liked", [""]);
   const [page, setPage] = useState(1);
-  const initialLoad = useRef(true);
-
   const { ref, inView } = useInView();
 
-  useLayoutEffect(() => {
-    if (initialLoad.current) {
-      initialLoad.current = false;
-      return;
-    }
-  });
-
   useEffect(() => {
-    console.log("initial load in useView: ", initialLoad);
-    if (initialLoad.current) return;
     if (!photos.length) return;
     if (page > 3) return;
 
@@ -50,7 +39,6 @@ const ImageGrid = () => {
               const isLiked = likedPhotos?.includes(photo.title);
 
               const setLiked = (liked) => {
-                console.log(liked);
                 setLikedPhotos((currentValue) => {
                   if (liked) {
                     return currentValue.filter((p) => p !== photo.title);

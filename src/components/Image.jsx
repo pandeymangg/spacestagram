@@ -1,11 +1,13 @@
 import React from "react";
 import { AiOutlineCalendar, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
-// import { trimExplanation } from "../utils/trimExplanation";
+import { useAppContext } from "../context/AppContext";
 
 const Image = ({ photo, isLiked, setLiked }) => {
+  const { theme } = useAppContext();
+
   return (
-    <SingleImage>
+    <SingleImage theme={theme}>
       <img className="single-image__img" src={photo.url} />
       <div className="single-image__details">
         <p className="single-image__details-title">{photo.title}</p>
@@ -18,7 +20,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
       <div className="single-image__details-like">
         <button onClick={() => setLiked(isLiked)}>
           <AiFillHeart
-            color={isLiked ? "red" : "#333"}
+            color={isLiked ? "red" : theme === "light" ? "#333" : "#eee"}
             style={{ marginTop: -2 }}
           />
           <span>{isLiked ? "Liked!" : "Like"}</span>
@@ -34,8 +36,9 @@ const SingleImage = styled.div`
   position: relative;
   border-radius: 10px;
   margin-bottom: 10px;
-  background-color: #fff;
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#1c1b22")};
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  border: 2px solid #24393d;
 
   & .single-image__img {
     position: absolute;
@@ -61,13 +64,13 @@ const SingleImage = styled.div`
     & .single-image__details-title {
       font-size: 18px;
       font-weight: 600;
-      color: #333;
+      color: ${({ theme }) => (theme === "light" ? "#333" : "#eee")};
     }
 
     & .single-image__details-date {
       font-size: 14px;
       font-weight: 600;
-      color: #333;
+      color: ${({ theme }) => (theme === "light" ? "#333" : "#eee")};
       display: flex;
       align-items: center;
       gap: 4px;
@@ -76,7 +79,7 @@ const SingleImage = styled.div`
     & .single-image__details-desc {
       font-size: 16px;
       font-weight: 500;
-      color: #555;
+      color: ${({ theme }) => (theme === "light" ? "#555" : "#eee")};
 
       overflow: hidden;
       text-overflow: ellipsis;
@@ -110,9 +113,11 @@ const SingleImage = styled.div`
       display: flex;
       align-items: center;
       gap: 4px;
-      background-color: #fff;
+      /* background-color: #fff; */
+      background-color: transparent;
       outline: none;
       border: none;
+      color: ${({ theme }) => (theme === "light" ? "#333" : "#eee")};
     }
   }
 
