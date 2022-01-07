@@ -1,14 +1,29 @@
-import React from "react";
-import { AiOutlineCalendar, AiFillHeart } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineCalendar, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 
 const Image = ({ photo, isLiked, setLiked }) => {
   const { theme } = useAppContext();
+  const [showLikeIcon, setShowLikeIcon] = useState(false);
+
+  const likeHandler = () => {
+    setLiked(isLiked);
+
+    if (!isLiked) {
+      setShowLikeIcon(true);
+      setTimeout(() => setShowLikeIcon(false), 1000);
+    }
+  };
 
   return (
-    <SingleImage theme={theme}>
+    <SingleImage theme={theme} showLikeIcon={showLikeIcon}>
       <img className="single-image__img" src={photo.url} />
+
+      <div className="single-image__img-icon">
+        <AiFillHeart color="red" size={60} />
+      </div>
+
       <div className="single-image__details">
         <p className="single-image__details-title">{photo.title}</p>
         <p className="single-image__details-date">
@@ -17,13 +32,18 @@ const Image = ({ photo, isLiked, setLiked }) => {
         </p>
         <p className="single-image__details-desc">{photo.explanation}</p>
       </div>
+
       <div className="single-image__details-like">
-        <button onClick={() => setLiked(isLiked)}>
-          <AiFillHeart
-            color={isLiked ? "red" : theme === "light" ? "#333" : "#eee"}
-            style={{ marginTop: -2 }}
-          />
-          <span>{isLiked ? "Liked!" : "Like"}</span>
+        <button onClick={likeHandler}>
+          {isLiked ? (
+            <AiFillHeart size={24} color="red" style={{ marginTop: -2 }} />
+          ) : (
+            <AiOutlineHeart
+              size={24}
+              color={theme === "light" ? "#333" : "#eee"}
+              style={{ marginTop: -2 }}
+            />
+          )}
         </button>
       </div>
     </SingleImage>
@@ -40,6 +60,21 @@ const SingleImage = styled.div`
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   border: ${({ theme }) => theme === "dark" && "2px solid #24393d"};
 
+  & .single-image__img-icon {
+    opacity: ${({ _, showLikeIcon }) => (showLikeIcon ? 1 : 0)};
+    transform: scale(${({ _, showLikeIcon }) => (showLikeIcon ? 1 : 1.5)});
+    transition: all 0.5s ease;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: ${({ _, showLikeIcon }) => showLikeIcon && 10};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   & .single-image__img {
     position: absolute;
     left: 0;
@@ -55,7 +90,7 @@ const SingleImage = styled.div`
     overflow: hidden;
     top: 50%;
     width: 100%;
-    height: 45%;
+    height: 40%;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -80,22 +115,9 @@ const SingleImage = styled.div`
       font-size: 16px;
       font-weight: 500;
       color: ${({ theme }) => (theme === "light" ? "#555" : "#eee")};
-
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      line-clamp: 7;
-      -webkit-box-orient: vertical;
-
-      @media (max-width: 1200px) {
-        -webkit-line-clamp: 5;
-        line-clamp: 5;
-      }
-
-      @media (max-width: 640px) {
-        -webkit-line-clamp: 8;
-        line-clamp: 8;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }
