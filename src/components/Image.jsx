@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { RiFileCopyLine } from "react-icons/ri";
+import { BsCheckAll } from "react-icons/bs";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -8,15 +10,26 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Image = ({ photo, isLiked, setLiked }) => {
   const { theme } = useAppContext();
   const [showLikeIcon, setShowLikeIcon] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  let likeIconTimer = null;
+
+  useEffect(() => {
+    return () => clearTimeout(likeIconTimer);
+  }, []);
 
   const likeHandler = () => {
     setLiked(isLiked);
 
     if (!isLiked) {
       setShowLikeIcon(true);
-      setTimeout(() => setShowLikeIcon(false), 1000);
+      likeIconTimer = setTimeout(() => setShowLikeIcon(false), 1000);
     }
+  };
+
+  const copyHandler = () => {
+    navigator.clipboard.writeText(photo.url);
+    setLinkCopied(true);
   };
 
   return (
@@ -52,7 +65,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
       </div>
 
       <div className="single-image__details-like">
-        <button onClick={likeHandler}>
+        <button className="like-btn" onClick={likeHandler}>
           {isLiked ? (
             <AiFillHeart size={24} color="red" style={{ marginTop: -2 }} />
           ) : (
@@ -61,6 +74,13 @@ const Image = ({ photo, isLiked, setLiked }) => {
               color={theme === "light" ? "#333" : "#eee"}
               style={{ marginTop: -2 }}
             />
+          )}
+        </button>
+        <button onClick={copyHandler}>
+          {linkCopied ? (
+            <BsCheckAll size={24} color="green" />
+          ) : (
+            <RiFileCopyLine />
           )}
         </button>
       </div>
@@ -80,7 +100,7 @@ const SingleImage = styled.div`
 
   & .single-image__img-icon {
     opacity: ${({ _, showLikeIcon }) => (showLikeIcon ? 1 : 0)};
-    transform: scale(${({ _, showLikeIcon }) => (showLikeIcon ? 1 : 1.5)});
+    transform: scale(${({ _, showLikeIcon }) => (showLikeIcon ? 1.5 : 1)});
     transition: all 0.5s ease;
     position: absolute;
     top: 0;
@@ -144,6 +164,7 @@ const SingleImage = styled.div`
       font-weight: 500;
       color: ${({ theme }) => (theme === "light" ? "#555" : "#eee")};
       overflow-y: auto;
+
       &::-webkit-scrollbar {
         display: none;
       }
@@ -154,6 +175,9 @@ const SingleImage = styled.div`
     padding-left: 8px;
     position: absolute;
     bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 
     & button {
       cursor: pointer;
@@ -167,6 +191,11 @@ const SingleImage = styled.div`
       outline: none;
       border: none;
       color: ${({ theme }) => (theme === "light" ? "#333" : "#eee")};
+      transition: all 0.2s ease;
+    }
+
+    & button:hover {
+      transform: scale(1.5);
     }
   }
 
