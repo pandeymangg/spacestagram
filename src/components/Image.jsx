@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { AiOutlineCalendar, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Image = ({ photo, isLiked, setLiked }) => {
   const { theme } = useAppContext();
   const [showLikeIcon, setShowLikeIcon] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const likeHandler = () => {
     setLiked(isLiked);
@@ -17,8 +20,23 @@ const Image = ({ photo, isLiked, setLiked }) => {
   };
 
   return (
-    <SingleImage theme={theme} showLikeIcon={showLikeIcon}>
-      <img className="single-image__img" src={photo.url} />
+    <SingleImage theme={theme} showLikeIcon={showLikeIcon} loaded={loaded}>
+      <img
+        className="single-image__img"
+        src={photo.url}
+        onLoad={() => setLoaded(true)}
+      />
+
+      {!loaded ? (
+        <div className="single-image__placeholder">
+          <SkeletonTheme
+            baseColor={theme === "light" ? "#ebebeb" : "#202020"}
+            highlightColor={theme === "light" ? "#f5f5f5" : "#444"}
+          >
+            <Skeleton width={"100%"} height={"100%"} />
+          </SkeletonTheme>
+        </div>
+      ) : null}
 
       <div className="single-image__img-icon">
         <AiFillHeart color="red" size={60} />
@@ -75,7 +93,17 @@ const SingleImage = styled.div`
     align-items: center;
   }
 
+  & .single-image__placeholder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+
   & .single-image__img {
+    display: ${({ _, __, loaded }) => (loaded ? "block" : "none")};
     position: absolute;
     left: 0;
     top: 0;
@@ -135,7 +163,6 @@ const SingleImage = styled.div`
       display: flex;
       align-items: center;
       gap: 4px;
-      /* background-color: #fff; */
       background-color: transparent;
       outline: none;
       border: none;
