@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
-import { BsFillMoonFill, BsSunFill } from "react-icons/bs";
+import { BsFillMoonFill, BsSunFill, BsGithub } from "react-icons/bs";
 
 const Header = () => {
   const { theme, setTheme } = useAppContext();
@@ -10,17 +10,29 @@ const Header = () => {
     <Container theme={theme}>
       <div className="heading__wrapper">
         <h1 className="header__heading">Spacestagram</h1>
-        <div
-          onClick={() => {
-            setTheme((theme) => (theme === "light" ? "dark" : "light"));
-          }}
-          className="heading__btn"
-        >
-          {theme === "light" ? (
-            <BsFillMoonFill />
-          ) : (
-            <BsSunFill color="rgb(254, 190, 73)" />
-          )}
+        <div className="header__links">
+          <div>
+            <a
+              className="header__github"
+              href="https://github.com/anshuman9999/spacestagram"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <BsGithub />
+            </a>
+          </div>
+          <div
+            onClick={() => {
+              setTheme((theme) => (theme === "light" ? "dark" : "light"));
+            }}
+            className="header__tbtn"
+          >
+            {theme === "light" ? (
+              <BsFillMoonFill />
+            ) : (
+              <BsSunFill color="rgb(254, 190, 73)" />
+            )}
+          </div>
         </div>
       </div>
       <p className="header__para">
@@ -40,14 +52,32 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    & .heading__btn {
-      cursor: pointer;
-      font-size: 16px;
-    }
-
     & .header__heading {
       font-size: 2.5rem;
       color: ${({ theme }) => (theme === "dark" ? "#eee" : "#333")};
+    }
+
+    & .header__links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      & .header__github {
+        cursor: pointer;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: ${({ theme }) => (theme === "dark" ? "#eee" : "#333")};
+        transition: all 0.1s ease;
+      }
+
+      & .header__github:hover {
+        font-size: 1.5rem;
+      }
+
+      & .header__tbtn {
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
     }
   }
 
