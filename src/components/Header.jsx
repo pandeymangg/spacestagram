@@ -17,6 +17,7 @@ const Header = () => {
               href="https://github.com/anshuman9999/spacestagram"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub"
             >
               <BsGithub />
             </a>

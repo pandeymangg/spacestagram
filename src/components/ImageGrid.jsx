@@ -11,18 +11,22 @@ const ImageGrid = () => {
   const [likedPhotos, setLikedPhotos] = useLocalStorage("liked", [""]);
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView();
+  const limit = 6;
+  const totalPages = 27 / limit;
 
   useEffect(() => {
-    if (!photos.length) return;
-    if (page > 3) return;
+    if (inView) {
+      if (!photos.length) return;
+      if (page > totalPages) return;
 
-    setPage((page) => page + 1);
+      setPage(page + 1);
+    }
   }, [inView]);
 
   useEffect(() => {
-    if (page <= 3) {
+    if (page <= totalPages) {
       const fetchPhotos = async () => {
-        const photosData = await photoFetcher(page);
+        const photosData = await photoFetcher(page, limit);
 
         setPhotos([...new Set([...photos, ...photosData.data])]);
       };
@@ -35,7 +39,7 @@ const ImageGrid = () => {
     <div>
       <Container>
         {photos
-          ? photos.map((photo) => {
+          ? photos.map((photo, index) => {
               const isLiked = likedPhotos?.includes(photo.title);
 
               const setLiked = (liked) => {
@@ -49,12 +53,17 @@ const ImageGrid = () => {
               };
 
               return (
-                <Image photo={photo} isLiked={isLiked} setLiked={setLiked} />
+                <Image
+                  key={index}
+                  photo={photo}
+                  isLiked={isLiked}
+                  setLiked={setLiked}
+                />
               );
             })
           : null}
       </Container>
-      {page <= 3 ? (
+      {page <= totalPages ? (
         <div ref={ref} style={{ height: 100 }}>
           <Spinner />
         </div>

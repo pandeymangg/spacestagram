@@ -71,7 +71,11 @@ const Image = ({ photo, isLiked, setLiked }) => {
       </div>
 
       <div className="single-image__details-like">
-        <button className="like-btn" onClick={likeHandler}>
+        <button
+          aria-label="like button"
+          className="like-btn"
+          onClick={likeHandler}
+        >
           {isLiked ? (
             <AiFillHeart size={24} color="red" style={{ marginTop: -2 }} />
           ) : (
@@ -82,7 +86,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
             />
           )}
         </button>
-        <button onClick={copyHandler}>
+        <button aria-label="copy button" onClick={copyHandler}>
           {linkCopied ? (
             <BsCheckAll size={24} color="green" />
           ) : (

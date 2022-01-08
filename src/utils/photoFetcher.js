@@ -1,19 +1,13 @@
 import axios from "axios";
 import { apiKey } from "../data/constants";
 
-export const photoFetcher = async (page = 1) => {
+export const photoFetcher = async (page = 1, limit = 9) => {
   let url = "";
-  if (page === 1) {
-    url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-12-01&end_date=2021-12-09`;
-  }
 
-  if (page === 2) {
-    url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-12-10&end_date=2021-12-18`;
-  }
+  let initialDate = limit * (page - 1) + 1;
+  const finalDate = limit * page;
 
-  if (page === 3) {
-    url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-12-19&end_date=2021-12-27`;
-  }
+  url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-12-${initialDate}&end_date=2021-12-${finalDate}`;
 
   const data = await axios.get(url);
 
