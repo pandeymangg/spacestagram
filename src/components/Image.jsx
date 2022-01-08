@@ -43,6 +43,7 @@ const Image = ({ photo, isLiked, setLiked }) => {
         className="single-image__img"
         src={photo.url}
         onLoad={() => setLoaded(true)}
+        alt={photo.title}
       />
 
       {!loaded ? (
