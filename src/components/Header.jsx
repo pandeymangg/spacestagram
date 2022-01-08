@@ -55,6 +55,10 @@ const Container = styled.div`
     & .header__heading {
       font-size: 2.5rem;
       color: ${({ theme }) => (theme === "dark" ? "#eee" : "#333")};
+
+      @media (max-width: 640px) {
+        font-size: 1.6rem;
+      }
     }
 
     & .header__links {
@@ -86,6 +90,10 @@ const Container = styled.div`
     margin-top: 12px;
     font-weight: 500;
     color: ${({ theme }) => (theme === "dark" ? "#eee" : "#555")};
+
+    @media (max-width: 640px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
