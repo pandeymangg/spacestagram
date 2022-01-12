@@ -21,3 +21,23 @@ body[data-theme="light"] {
 body[data-theme="dark"] {
   background: #1c1c1c;
 }
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.2rem 0.1rem;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+body[data-theme="dark"] button:focus-visible {
+  border: 2px solid #eee;
+}
+
+body[data-theme="light"] button:focus-visible {
+  border: 2px solid #333;
+}

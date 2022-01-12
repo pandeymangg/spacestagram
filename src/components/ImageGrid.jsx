@@ -36,7 +36,7 @@ const ImageGrid = () => {
   }, [page]);
 
   return (
-    <div>
+    <main>
       <Container>
         {photos
           ? photos.map((photo, index) => {
@@ -68,7 +68,7 @@ const ImageGrid = () => {
           <Spinner />
         </div>
       ) : null}
-    </div>
+    </main>
   );
 };
 

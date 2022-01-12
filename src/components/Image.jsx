@@ -191,16 +191,6 @@ const SingleImage = styled.div`
     gap: 4px;
 
     & button {
-      cursor: pointer;
-      padding: 0.2rem 0.1rem;
-      font-size: 18px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      background-color: transparent;
-      outline: none;
-      border: none;
       color: ${({ theme }) => (theme === "light" ? "#333" : "#eee")};
       transition: all 0.2s ease;
     }

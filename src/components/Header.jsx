@@ -22,7 +22,7 @@ const Header = () => {
               <BsGithub />
             </a>
           </div>
-          <div
+          <button
             onClick={() => {
               setTheme((theme) => (theme === "light" ? "dark" : "light"));
             }}
@@ -33,7 +33,7 @@ const Header = () => {
             ) : (
               <BsSunFill color="rgb(254, 190, 73)" />
             )}
-          </div>
+          </button>
         </div>
       </div>
       <p className="header__para">
@@ -43,7 +43,7 @@ const Header = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.header`
   margin-top: 2rem;
   margin-bottom: 2rem;
 
