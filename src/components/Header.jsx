@@ -27,6 +27,7 @@ const Header = () => {
               setTheme((theme) => (theme === "light" ? "dark" : "light"));
             }}
             className="header__tbtn"
+            aria-label="change theme"
           >
             {theme === "light" ? (
               <BsFillMoonFill />
