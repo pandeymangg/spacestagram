@@ -10,10 +10,7 @@ This is my submission for the shopify frontend internship challenge for summer 2
 
 Implemented both light and dark themes, the defualt is dark.
 
-<!-- ![Dark Theme!](/src/data/images/dark.jpg)
-![Light Theme!](/src/data/images/light.jpg) -->
-
-|                Light Theme                |                 Dark Theme                  |
+|                Dark Theme                 |                 Light Theme                 |
 | :---------------------------------------: | :-----------------------------------------: |
 | ![Dark Theme!](/src/data/images/dark.jpg) | ![Light Theme!](/src/data/images/light.jpg) |
 
