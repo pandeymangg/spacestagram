@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useAppContext } from "../context/AppContext";
 import { BsFillMoonFill, BsSunFill, BsGithub } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
-  // const { theme, setTheme } = useAppContext();
   const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
