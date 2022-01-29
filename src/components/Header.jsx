@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BsFillMoonFill, BsSunFill, BsGithub } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useActions } from "../useActions";
 import { themeChanged } from "../actions";
 

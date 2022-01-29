@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineCalendar, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiFileCopyLine } from "react-icons/ri";
 import { BsCheckAll } from "react-icons/bs";
 import styled from "styled-components";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useActions } from "../useActions";
+import { photoLikeToggled } from "../actions";
 
 const Image = ({ photo }) => {
   const theme = useSelector((state) => state.theme);
   const [showLikeIcon, setShowLikeIcon] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
   const likedPhotos = useSelector((state) => state.likedPhotos);
-
-  const [isLiked, setLiked] = useState(likedPhotos.includes(photo.title));
-
-  const dispatch = useDispatch();
+  const [isLiked, setIsLiked] = useState(likedPhotos.includes(photo.title));
+  const actions = useActions({
+    photoLikeToggled: photoLikeToggled,
+  });
 
   let likeIconTimer = null;
   let copyIconTimer = null;
@@ -28,22 +31,16 @@ const Image = ({ photo }) => {
     };
   }, []);
 
-  const likeHandler = () => {
-    setLiked(!isLiked);
+  const likeHandler = useCallback(() => {
+    setIsLiked(!isLiked);
 
     if (!isLiked) {
       setShowLikeIcon(true);
       likeIconTimer = setTimeout(() => setShowLikeIcon(false), 1000);
     }
 
-    dispatch({
-      type: "PHOTO_LIKE_TOGGLED",
-      payload: {
-        liked: !isLiked,
-        photo: photo.title,
-      },
-    });
-  };
+    actions.photoLikeToggled(!isLiked, photo.title);
+  }, [isLiked]);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(photo.url);

@@ -1,17 +1,19 @@
+import { PHOTO_LIKE_TOGGLED, THEME_CHANGED } from "./actions";
+
 const initialState = {
   theme: "dark",
   likedPhotos: [],
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
-  if (type === "THEME_CHANGED") {
+  if (type === THEME_CHANGED) {
     return {
       ...state,
       theme: payload === "light" ? "dark" : "light",
     };
   }
 
-  if (type === "PHOTO_LIKE_TOGGLED") {
+  if (type === PHOTO_LIKE_TOGGLED) {
     const { liked, photo } = payload;
 
     if (liked) {
@@ -23,7 +25,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     } else {
       const newState = {
         ...state,
-        likedPhotos: [...state.likedPhotos].filter((p) => p === photo),
+        likedPhotos: state.likedPhotos.filter((p) => p !== photo),
       };
 
       return newState;

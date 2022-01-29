@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { photoFetcher } from "../utils/photoFetcher";
-// import { useLocalStorage } from "../hooks/useLocalStorage";
 import Image from "./Image";
 import { useInView } from "react-intersection-observer";
 import Spinner from "./Spinner/Spinner";
 
 const ImageGrid = () => {
   const [photos, setPhotos] = useState([]);
-  // const [likedPhotos, setLikedPhotos] = useLocalStorage("liked", [""]);
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView();
   const limit = 6;
@@ -40,26 +38,7 @@ const ImageGrid = () => {
       <Container>
         {photos
           ? photos.map((photo, index) => {
-              // const isLiked = likedPhotos?.includes(photo.title);
-
-              // const setLiked = (liked) => {
-              //   setLikedPhotos((currentValue) => {
-              //     if (liked) {
-              //       return currentValue.filter((p) => p !== photo.title);
-              //     } else {
-              //       return [...currentValue, photo.title];
-              //     }
-              //   });
-              // };
-
-              return (
-                <Image
-                  key={index}
-                  photo={photo}
-                  // isLiked={isLiked}
-                  // setLiked={setLiked}
-                />
-              );
+              return <Image key={index} photo={photo} />;
             })
           : null}
       </Container>
