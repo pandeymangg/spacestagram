@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { BsFillMoonFill, BsSunFill, BsGithub } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
-  const { theme, setTheme } = useAppContext();
+  // const { theme, setTheme } = useAppContext();
+  const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
 
   return (
     <Container theme={theme}>
@@ -24,7 +27,8 @@ const Header = () => {
           </div>
           <button
             onClick={() => {
-              setTheme((theme) => (theme === "light" ? "dark" : "light"));
+              // setTheme((theme) => (theme === "light" ? "dark" : "light"));
+              dispatch({ type: "THEME_CHANGED", payload: theme });
             }}
             className="header__tbtn"
             aria-label="change theme"
