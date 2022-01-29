@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Header from "./Header";
@@ -8,10 +9,15 @@ const Container = () => {
   const theme = useSelector((state) => state.theme);
 
   return (
-    <ContainerDiv theme={theme}>
-      <Header />
-      <ImageGrid />
-    </ContainerDiv>
+    <HelmetProvider>
+      <Helmet>
+        <body data-theme={theme} />
+      </Helmet>
+      <ContainerDiv theme={theme}>
+        <Header />
+        <ImageGrid />
+      </ContainerDiv>
+    </HelmetProvider>
   );
 };
 
