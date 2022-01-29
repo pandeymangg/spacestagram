@@ -1,9 +1,9 @@
 import Container from "./components/Container";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { AppProvider } from "./context/AppContext";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -14,7 +14,9 @@ function App() {
         <body data-theme={theme} />
       </Helmet>
       <Provider store={store}>
-        <Container />
+        <PersistGate loading={null} persistor={persistor}>
+          <Container />
+        </PersistGate>
       </Provider>
     </HelmetProvider>
   );

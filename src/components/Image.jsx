@@ -5,13 +5,21 @@ import { BsCheckAll } from "react-icons/bs";
 import styled from "styled-components";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const Image = ({ photo, isLiked, setLiked }) => {
+const Image = ({ photo }) => {
   const theme = useSelector((state) => state.theme);
   const [showLikeIcon, setShowLikeIcon] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isLiked, setLiked] = useState(false);
+
+  const likedPhotos = useSelector((state) => state.likedPhotos);
+
+  useEffect(() => console.log(likedPhotos), [likedPhotos]);
+
+  const dispatch = useDispatch();
+
   let likeIconTimer = null;
   let copyIconTimer = null;
 
@@ -23,12 +31,20 @@ const Image = ({ photo, isLiked, setLiked }) => {
   }, []);
 
   const likeHandler = () => {
-    setLiked(isLiked);
+    setLiked(!isLiked);
 
     if (!isLiked) {
       setShowLikeIcon(true);
       likeIconTimer = setTimeout(() => setShowLikeIcon(false), 1000);
     }
+
+    dispatch({
+      type: "PHOTO_LIKE_TOGGLED",
+      payload: {
+        liked: !isLiked,
+        photo: photo.title,
+      },
+    });
   };
 
   const copyHandler = () => {
