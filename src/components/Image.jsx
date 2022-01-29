@@ -6,8 +6,8 @@ import styled from "styled-components";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSelector } from "react-redux";
-import { useActions } from "../useActions";
-import { photoLikeToggled } from "../actions";
+import { useActions } from "../hooks/useActions";
+import { photoLikeToggled } from "../store/actions";
 
 const Image = ({ photo }) => {
   const theme = useSelector((state) => state.theme);

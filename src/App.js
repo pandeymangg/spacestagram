@@ -1,6 +1,6 @@
 import Container from "./components/Container";
 import { Provider } from "react-redux";
-import { persistor, store } from "./store";
+import { persistor, store } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 const App = () => (

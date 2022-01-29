@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { BsFillMoonFill, BsSunFill, BsGithub } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { useActions } from "../useActions";
-import { themeChanged } from "../actions";
+import { useActions } from "../hooks/useActions";
+import { themeChanged } from "../store/actions";
 
 const Header = () => {
   const theme = useSelector((state) => state.theme);
