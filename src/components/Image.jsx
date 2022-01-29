@@ -12,11 +12,9 @@ const Image = ({ photo }) => {
   const [showLikeIcon, setShowLikeIcon] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [isLiked, setLiked] = useState(false);
-
   const likedPhotos = useSelector((state) => state.likedPhotos);
 
-  useEffect(() => console.log(likedPhotos), [likedPhotos]);
+  const [isLiked, setLiked] = useState(likedPhotos.includes(photo.title));
 
   const dispatch = useDispatch();
 
