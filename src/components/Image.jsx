@@ -3,12 +3,12 @@ import { AiOutlineCalendar, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiFileCopyLine } from "react-icons/ri";
 import { BsCheckAll } from "react-icons/bs";
 import styled from "styled-components";
-import { useAppContext } from "../context/AppContext";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
 
 const Image = ({ photo, isLiked, setLiked }) => {
-  const { theme } = useAppContext();
+  const theme = useSelector((state) => state.theme);
   const [showLikeIcon, setShowLikeIcon] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);

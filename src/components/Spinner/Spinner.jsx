@@ -1,9 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useAppContext } from "../../context/AppContext";
 
 const Spinner = () => {
-  const { theme } = useAppContext();
+  const theme = useSelector((state) => state.theme);
 
   return (
     <SpinnerDiv theme={theme}>
